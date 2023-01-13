@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Nissan Welcome Gift</title>
-    
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/css/uikit.css">
     <link rel="stylesheet" href="./jquery.Thailand.js/dist/jquery.Thailand.min.css">
@@ -20,7 +20,7 @@
       var lineuidval;
       //process line login
       liff.init({
-        liffId: '1656660800-5w6WRqEx',
+        liffId: '1657817016-wRo7QlE5',
       }).then(() => {
         console.log(liff.isLoggedIn());
         if (liff.isLoggedIn()===false) {
@@ -48,7 +48,7 @@
 
                     <label class="email-label">อีเมล</label>
                     <input type="text" class="fullform" name="email" placeholder="email@domain.com" onchange="ValidateEmail(document.form1.email)" />
-                    
+
                     <label id="txtAddress" class="address-label">ที่อยู่ปัจจุบัน สำหรับจัดส่งของขวัญ <span class="uptx">*</span></label>
                     <input type="text" class="fullform" name="address" placeholder="บ้านเลขที่" required oninvalid="this.setCustomValidity('กรุณากรอกบ้านเลขที่')" oninput="setCustomValidity('')" />
 
@@ -58,7 +58,7 @@
                         </select>
                     </div>
 
-                    <label class="district-label">อำเภอ <span class="uptx">*</span></label>                    
+                    <label class="district-label">อำเภอ <span class="uptx">*</span></label>
                     <div>
                         <select id="amphur" name="amphur" required oninvalid="this.setCustomValidity('กรุณากรอกอำเภอ')" oninput="setCustomValidity('')">
                             <option>- กรุณาเลือกอำเภอ -</option>
@@ -66,13 +66,13 @@
                     </div>
 
 
-                    <label class="sub-district-label">ตำบล <span class="uptx">*</span></label>  
+                    <label class="sub-district-label">ตำบล <span class="uptx">*</span></label>
                     <div>
                         <select id="district" name="district" required oninvalid="this.setCustomValidity('กรุณากรอกตำบล')" oninput="setCustomValidity('')">
                             <option>- กรุณาเลือกตำบล -</option>
                         </select>
                     </div>
-                    
+
                     <label class="postcode-label">รหัสไปรษณีย์ <span class="uptx">*</span></label>
                     <input type="text" id="postcode" name="postcode" required oninvalid="this.setCustomValidity('กรุณากรอกรหัสไปรษณีย์')" oninput="setCustomValidity('')" />
 
@@ -124,18 +124,18 @@
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/js/uikit.min.js"></script>
-    
+
     <!-- dependencies for zip mode -->
     <script type="text/javascript" src="./jquery.Thailand.js/dependencies/zip.js/zip.js"></script>
     <!-- / dependencies for zip mode -->
 
     <script type="text/javascript" src="./jquery.Thailand.js/dependencies/JQL.min.js"></script>
     <script type="text/javascript" src="./jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
-    
+
     <script type="text/javascript" src="./jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
-    
+
     <script type="text/javascript">
         function validateForm() {
 
@@ -177,7 +177,7 @@
                return false;
           }
 
-          
+
 
           var e = document.forms["form1"]["province"].value;
           if (e == "") {
@@ -207,7 +207,7 @@
                return false;
           }
 
-          
+
           var i = document.forms["form1"]["carmodel"].value;
           if (i == "") {
             //alert("Name must be filled out");
@@ -221,7 +221,7 @@
                return false;
           }
 
-         
+
         }
         $('form').submit(function(e){
           e.preventDefault();
@@ -232,9 +232,9 @@
             success: function() {
               window.location.href="/thankyou.html";
             },
-            error: function(jqXHR,error, errorThrown) {  
+            error: function(jqXHR,error, errorThrown) {
               if(jqXHR.status&&jqXHR.status==400){
-                console.log(jqXHR.responseText); 
+                console.log(jqXHR.responseText);
               }else{
                 console.log("Something went wrong");
               }
@@ -262,11 +262,11 @@
           .catch((err) => {
               console.log(err);
           });
-          
-          
+
+
         });
 
-        
+
 
         $(document).ready(function(){
           $('#idcard').on('keyup',function(){
@@ -283,11 +283,11 @@
               }
             }else{
               $('span.error').removeClass('true').text('');
-            
+
             }
           })
           //LINE Initial
-          
+
         });
 
         function Script_checkID(id){
@@ -303,7 +303,7 @@
             var RE = /^-?(0|INF|(0[1-7][0-7]*)|(0x[0-9a-fA-F]+)|((0|[1-9][0-9]*|(?=[\.,]))([\.,][0-9]+)?([eE]-?\d+)?))$/;
             return (RE.test(input));
         }
-        
+
         function ValidateEmail(inputText)
             {
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -332,14 +332,14 @@
 
         }
 
-        
-        
+
+
     </script>
     <script language="javascript" src="js/bootstrap.min.js"></script>
 
     <script language="javascript" src="js/moment.js"></script>
     <script language="javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-    
+
 
 <script type="text/javascript" src="AutoProvince.min.js"></script>
 <script>
