@@ -267,3 +267,7 @@ button[disabled] {
 .option-text {
   color: black;
 }
+
+option {
+  color: black;
+}
