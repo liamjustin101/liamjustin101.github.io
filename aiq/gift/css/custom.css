@@ -1,0 +1,265 @@
+
+
+
+@font-face {
+    font-family: 'db_futhaira_body_xmed';
+    src: url('../font/db_futhaira_body_x_med_v3.2-webfont.woff2') format('woff2'),
+         url('../font/db_futhaira_body_x_med_v3.2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.input-group .form-control {
+    font-size: 20px !important;
+    padding-left: 1px !important;
+    color: #fff !important;
+}
+span.uptx {
+    text-transform: uppercase;
+    font-size: 18px;
+}
+a, h1, h2, .h2{
+            font-family: 'Kanit', sans-serif !important;
+            line-height: 1.6em;
+        }
+a{
+    font-size: 1.4em;
+}
+label{
+    font-size: 1.6em;
+    display: block;
+}
+select,
+input {
+    appearance: none;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    background: transparent;
+    font-size: 20px;
+    color: #fff;
+    outline: none;
+}
+label { width:100%; }
+span.nissanlogo img,.nissanhd img { width:100%; }
+.bottomtag { margin-bottom: 40px;}
+body {
+    background: #9A1F33 url(../images/nissan-bg-bottom.png) no-repeat center bottom;background-size: 100%;
+    font-family: 'db_futhaira_body_xmed';
+}
+span.nissanlogo {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    padding-top: 30px;
+}
+span.nissanhd {
+    color: #fff;
+    font-size: 26px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+span.nissansub {
+    color: #fff;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+}
+.nissanwhite {
+    background: #560c1a;
+    padding: 7vw;
+    margin: 15px 7vw 7vw 7vw;
+    border-radius: 7px;
+}
+.gform_wrapper .gfield_required {
+    display: none;
+}
+label { margin-bottom:15px; margin-top:10px; }
+input.fullform {
+    background: transparent !important;
+    border: 0;
+    border-bottom: 1px solid #fff !important;
+    padding-left: 0 !important;
+    border-radius: 0 !important;
+    width: 100%;
+    color: #fff;
+    font-size: 20px;
+    height: 40px;
+    outline: 0;
+}
+label.name-label ,
+label.surname-label ,
+label.phone-label ,
+label.email-label,
+label.address-label,
+label.province-label,
+label.district-label,
+label.postcode-label,
+label.id-label,
+label.date-label,
+label.model-label,
+label.sub-district-label {
+    background-size: 100%;
+    font-size: 24px !important;
+    height: 35px;
+    padding-bottom: 5px !important;
+    display: block !important;
+    background-position: -5px;
+    color: #fff !important;
+}
+span.errortx {
+    color: #fff;
+}
+div.modelbox{ position:relative; width:100%; margin-top: 15px;}
+div.model {
+    background: url(../images/nissan-pleaseselect2.png) no-repeat left center !important;
+    background-size: 168px !important;
+    font-size: 0 !important;
+    height: 35px;
+    padding-bottom: 5px !important;
+    display: block !important;
+    background-position: 0;
+    position: absolute;
+    top: 0;
+    width: 167px;
+    border: 0;
+        left: 130px;
+    outline: 0;
+}
+select {
+    appearance: none;
+}
+.select-model { background:transparent; border:0 ;
+    background: transparent;
+    border: 0;
+    width: 163px;
+    height: 35px;
+    font-size: 16px;
+    padding-top: 0px;
+    padding-left: 9px;
+    outline: 0;
+    color: #7181a1;
+}
+.province-select,
+.district-select {
+    background: url(../images/selectbg.png) no-repeat left center !important;
+    color: #fff;
+    padding-left: 7px;
+    background-size: 100% !important;
+    font-size: 20px !important;
+    height: 49px;
+    border: 0;
+    border-bottom: 1px solid #fff !important;
+    padding-bottom: 5px !important;
+    display: block !important;
+    background-position: 0;
+    border-radius: 0;
+    width: 100%;
+    outline: 0;
+}
+button#sendform {
+    background: #9A1F33 !important;
+    border: 1px solid #9A1F33 !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    color: #fff !important;
+    font-size: 20px !important;
+    padding: 10px !important;
+    margin-top: 20px !important;
+        line-height: 20px;
+}
+
+.uk-padding {
+    padding: 0 !important;
+}
+
+.uk-grid {
+    margin-left: 0;
+}
+.uk-grid + .uk-grid, .uk-grid > .uk-grid-margin, * + .uk-grid-margin {
+    margin-top: 0;
+}
+.uk-grid > * {
+    padding-left: 0;
+}
+.uk-input, .uk-select, .uk-textarea {
+    border: 0;
+    border-bottom: 1px solid #fff;
+    background: transparent !important;
+    font-size: 20px;
+    color: #fff;
+}
+.uk-input:focus, .uk-select:focus, .uk-textarea:focus {
+    color: #fff;
+    font-size: 20px;
+    border-color: #fff;
+}
+.error ,.error2{color: #fff;}
+.error.true ,.error2.true { display:none; }
+
+.form-group.required.uk-grid-margin.uk-first-column {
+    width: 100%;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: transparent !important;
+    opacity: 1 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #fff !important;
+    font-size: 20px !important;
+    color: #fff !important;
+    padding-left: 5px !importantx;
+}
+.input-group-addon {
+    background-color: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #fff !important;
+}
+.form-control:focus {
+    
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 0%), 0 0 8px rgb(102 175 233 / 0%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 0%), 0 0 8px rgb(102 175 233 / 0%);
+}
+.glyphicon-calendar:before {
+    font-size: 0;
+    background: url(../images/calendar.png) no-repeat !important;
+        width: 20px;
+    height: 20px;
+    background-size: 20px !important;
+    display: inline-block;
+    float: left;
+}
+.input-group-addon {
+    padding-top: 0;
+    margin-top: 0px;
+}
+.form-control {
+    border: 0 !important;
+    background: transparent !important;
+    border-bottom: 1px solid #fff !important;
+}
+.input-group .form-control {
+    border-radius: 0 !important;
+}
+
+button[disabled] {
+    opacity: 0.5;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #825d62 !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #825d62 !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #825d62 !important;
+}

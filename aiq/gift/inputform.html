@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Nissan Welcome Gift</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/css/uikit.css">
+    <link rel="stylesheet" href="./jquery.Thailand.js/dist/jquery.Thailand.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <script>
+      var lineuidval;
+      //process line login
+      liff.init({
+        liffId: '1656660800-5w6WRqEx',
+      }).then(() => {
+        console.log(liff.isLoggedIn());
+        if (liff.isLoggedIn()===false) {
+          liff.login();
+        }
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+    </script>
+    <div class="nissanform">
+        <span class="nissanlogo"><img src="images/nissan-toplogo.png" /></span>
+        <span class="nissanhd"><img src="images/nissan-toptx.png" /></span>
+        <div class="nissanwhite">
+            <div class="uk-container uk-padding">
+                <form name="form1" class="demo" method="post" required>
+                    <label class="name-label">ชื่อ (ผู้ออกรถ) <span class="uptx">*</span></label>
+                    <input id="txtName" type="text" class="fullform" name="firstname" placeholder="ชื่อจริง" required oninvalid="this.setCustomValidity('กรุณากรอกชื่อจริง')" oninput="setCustomValidity('')" />
+
+                    <label class="surname-label">นามสกุล (ผู้ออกรถ) <span class="uptx">*</span></label>
+                    <input type="text" class="fullform" name="surname" placeholder="นามสกุล" required oninvalid="this.setCustomValidity('กรุณากรอกนามสกุล')" oninput="setCustomValidity('')" />
+
+                    <label class="phone-label">เบอร์โทรศัพท์ <span class="uptx">*</span></label>
+                    <input type="text" class="fullform" name="phone" placeholder="0811234567" onkeypress="return checkNumber(event)" maxlength="10" required oninvalid="this.setCustomValidity('กรุณากรอกเบอร์โทรศัพท์')" oninput="setCustomValidity('')"  />
+
+                    <label class="email-label">อีเมล</label>
+                    <input type="text" class="fullform" name="email" placeholder="email@domain.com" onchange="ValidateEmail(document.form1.email)" />
+                    
+                    <label id="txtAddress" class="address-label">ที่อยู่ปัจจุบัน สำหรับจัดส่งของขวัญ <span class="uptx">*</span></label>
+                    <input type="text" class="fullform" name="address" placeholder="บ้านเลขที่" required oninvalid="this.setCustomValidity('กรุณากรอกบ้านเลขที่')" oninput="setCustomValidity('')" />
+
+                    <label class="province-label">จังหวัด <span class="uptx">*</span></label>
+                    <select id="province" name="province" required oninvalid="this.setCustomValidity('กรุณากรอกจังหวัด')" oninput="setCustomValidity('')" >
+                            <option>- กรุณาเลือกจังหวัด -</option>
+                        </select>
+                    </div>
+
+                    <label class="district-label">อำเภอ <span class="uptx">*</span></label>                    
+                    <div>
+                        <select id="amphur" name="amphur" required oninvalid="this.setCustomValidity('กรุณากรอกอำเภอ')" oninput="setCustomValidity('')">
+                            <option>- กรุณาเลือกอำเภอ -</option>
+                        </select>
+                    </div>
+
+
+                    <label class="sub-district-label">ตำบล <span class="uptx">*</span></label>  
+                    <div>
+                        <select id="district" name="district" required oninvalid="this.setCustomValidity('กรุณากรอกตำบล')" oninput="setCustomValidity('')">
+                            <option>- กรุณาเลือกตำบล -</option>
+                        </select>
+                    </div>
+                    
+                    <label class="postcode-label">รหัสไปรษณีย์ <span class="uptx">*</span></label>
+                    <input type="text" id="postcode" name="postcode" required oninvalid="this.setCustomValidity('กรุณากรอกรหัสไปรษณีย์')" oninput="setCustomValidity('')" />
+
+                    <label class="id-label">หมายเลขบัตรประชาชน (ผู้ออกรถ) <span class="uptx">*</span></label>
+                    <input type="text" id="idcard" class="form-control fullform" maxlength="13" name="idcard" onkeypress="return checkNumber(event)" placeholder="122345658959" required oninvalid="this.setCustomValidity('กรุณากรอกหมายเลขบัตรประชาชน')" oninput="setCustomValidity('')" />
+                    <span class="error"></span>
+
+                    <div class="modelbox"><label class="model-label">รุ่นรถของท่าน <span class="uptx">*</span></label>
+                        <div class="model">
+                            <select class="select-model" name="carmodel" required oninvalid="this.setCustomValidity('กรุณากรอกรุ่นรถของท่าน')" oninput="setCustomValidity('')">
+                                <option value="" >Select a model</option>
+                                <option value="Almera">Almera</option>
+                                <option value="Juke">Juke</option>
+                                <option value="Kicks">Kicks</option>
+                                <option value="Leaf">Leaf</option>
+                                <option value="Livina">Livina</option>
+                                <option value="March">March</option>
+                                <option value="Navara">Navara</option>
+                                <option value="Note">Note</option>
+                                <option value="Pulsar">Pulsar</option>
+                                <option value="Sylphy">Sylphy</option>
+                                <option value="Teana">Teana</option>
+                                <option value="Terra">Terra</option>
+                                <option value="Urvan">Urvan</option>
+                                <option value="X-Trail">X-Trail</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="date-label">วันที่ออกรถ <span class="uptx">*</span></label>
+                    <div class="form-group required">
+                      <div class="input-group datepick">
+                        <input type="text" class="form-control" name="datecar" placeholder="วันที่ออกรถ" name="frmSaveOffice_startdt" id="frmSaveOffice_startdt" required oninvalid="this.setCustomValidity('กรุณากรอกรุ่นรถของท่าน')" oninput="setCustomValidity('')" >
+                        <div class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <input type="text" id="lineuid" name="lineuid"/>
+                    <button id="sendform" type="submit" >
+                        ลงทะเบียน
+                    </button>
+                </form>
+            </div>
+        </div>
+        <span class="nissanhd bottomtag"><img src="images/nissan-bottomtx.png" /></span>
+    </div>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.20/js/uikit.min.js"></script>
+    
+    <!-- dependencies for zip mode -->
+    <script type="text/javascript" src="./jquery.Thailand.js/dependencies/zip.js/zip.js"></script>
+    <!-- / dependencies for zip mode -->
+
+    <script type="text/javascript" src="./jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="./jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    
+    <script type="text/javascript" src="./jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+    
+    <script type="text/javascript">
+        function validateForm() {
+
+            $('span.surnameerror').removeClass('true').text(' ');
+            $('span.phoneerror').removeClass('true').text(' ');
+            $('span.addresserror').removeClass('true').text(' ');
+            $('span.provinceerror').removeClass('true').text(' ');
+            $('span.districterror').removeClass('true').text(' ');
+            $('span.postcodeerror').removeClass('true').text(' ');
+            $('span.iderror').removeClass('true').text(' ');
+            $('span.carmodelerror').removeClass('true').text(' ');
+            $('span.dateerror').removeClass('true').text(' ');
+
+          var a = document.forms["form1"]["firstname"].value;
+          if (a == "") {
+            //alert("Name must be filled out");
+            $('span.nameerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var b = document.forms["form1"]["surname"].value;
+          if (b == "") {
+            //alert("Name must be filled out");
+            $('span.surnameerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var c = document.forms["form1"]["phone"].value;
+          if (c == "") {
+            //alert("Name must be filled out");
+            $('span.phoneerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var d = document.forms["form1"]["address"].value;
+          if (d == "") {
+            //alert("Name must be filled out");
+            $('span.addresserror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          
+
+          var e = document.forms["form1"]["province"].value;
+          if (e == "") {
+            //alert("Name must be filled out");
+            $('span.provinceerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var f = document.forms["form1"]["amphur"].value;
+          if (f == "") {
+            //alert("Name must be filled out");
+            $('span.districterror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var g = document.forms["form1"]["postcode"].value;
+          if (g == "") {
+            //alert("Name must be filled out");
+            $('span.postcodeerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          var h = document.forms["form1"]["idcard"].value;
+          if (h == "") {
+            //alert("Name must be filled out");
+            $('span.iderror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+          
+          var i = document.forms["form1"]["carmodel"].value;
+          if (i == "") {
+            //alert("Name must be filled out");
+            $('span.carmodelerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+          var j = document.forms["form1"]["datecar"].value;
+          if (j == "") {
+            //alert("Name must be filled out");
+            $('span.dateerror').removeClass('true').text('ข้อมูลจำเป็นต้องกรอก');
+               return false;
+          }
+
+         
+        }
+        $('form').submit(function(e){
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: "https://api-google-sheet-dot-nissan-373006.as.r.appspot.com/lineliff",
+            data: $(this).serialize(),
+            success: function() {
+              window.location.href="/thankyou.html";
+            },
+            error: function(jqXHR,error, errorThrown) {  
+              if(jqXHR.status&&jqXHR.status==400){
+                console.log(jqXHR.responseText); 
+              }else{
+                console.log("Something went wrong");
+              }
+            }
+          })
+        });
+        $(document).ready(function() {
+          $('.datepick').datetimepicker({
+            format: 'L',
+            ignoreReadonly: true
+          });
+          liff.init({
+            liffId: '1656660800-5w6WRqEx',
+          }).then(() => {
+            if (liff.isLoggedIn()) {
+              liff.getProfile()
+              .then((profile) => {
+                $("#lineuid").val(profile.userId);
+              })
+              .catch((err) => {
+                console.log("error", err);
+              });
+            }
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+          
+          
+        });
+
+        
+
+        $(document).ready(function(){
+          $('#idcard').on('keyup',function(){
+            //if($.trim($(this).val()) != '' && $(this).val().length == 13){
+            if($.trim($(this).val()) != ''){
+              id = $(this).val().replace(/-/g,"");
+              var result = Script_checkID(id);
+              if(result === false){
+                $('span.error').removeClass('true').text('กรุณาใส่หมายเลขบัตรประชาชนให้ถูกต้อง');
+                $('#sendform').prop('disabled', true);
+              }else{
+                $('span.error').addClass('true').text('เลขบัตรถูก');
+                $('#sendform').prop('disabled', false);
+              }
+            }else{
+              $('span.error').removeClass('true').text('');
+            
+            }
+          })
+          //LINE Initial
+          
+        });
+
+        function Script_checkID(id){
+            if(! IsNumeric(id)) return false;
+            if(id.substring(0,1)== 0) return false;
+            if(id.length != 13) return false;
+            for(i=0, sum=0; i < 12; i++)
+                sum += parseFloat(id.charAt(i))*(13-i);
+            if((11-sum%11)%10!=parseFloat(id.charAt(12))) return false;
+            return true;
+        }
+        function IsNumeric(input){
+            var RE = /^-?(0|INF|(0[1-7][0-7]*)|(0x[0-9a-fA-F]+)|((0|[1-9][0-9]*|(?=[\.,]))([\.,][0-9]+)?([eE]-?\d+)?))$/;
+            return (RE.test(input));
+        }
+        
+        function ValidateEmail(inputText)
+            {
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if(inputText.value.match(mailformat))
+            {
+            //alert("Valid email address!");
+                $('span.error2').addClass('true').text('อีเมลถูก');
+            document.form1.email.focus();
+            return true;
+            }
+            else
+            {
+            //alert("You have entered an invalid email address!");
+                $('span.error2').removeClass('true').text('กรุณาตรวจสอบข้อมูล');
+            document.form1.email.focus();
+            return false;
+            }
+            }
+        function checkNumber(event) {
+
+        var aCode = event.which ? event.which : event.keyCode;
+
+        if (aCode > 31 && (aCode < 48 || aCode > 57)) return false;
+
+        return true;
+
+        }
+
+        
+        
+    </script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+
+    <script language="javascript" src="js/moment.js"></script>
+    <script language="javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    
+
+<script type="text/javascript" src="AutoProvince.min.js"></script>
+<script>
+    $('body').AutoProvince({
+        PROVINCE:       '#province', // select div สำหรับรายชื่อจังหวัด
+        AMPHUR:         '#amphur', // select div สำหรับรายชื่ออำเภอ
+        DISTRICT:       '#district', // select div สำหรับรายชื่อตำบล
+        POSTCODE:       '#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
+        GEOGRAPHY:      '#geography', // input field แสดงภาค
+        CURRENT_PROVINCE:1, //  แสดงค่าเริ่มต้น ใส่ไอดีจังหวัดที่เคยเลือกไว้
+        CURRENT_AMPHUR:1, // แสดงค่าเริ่มต้น  ใส่ไอดีอำเภอที่เคยเลือกไว้
+        CURRENT_DISTRICT:1, // แสดงค่าเริ่มต้น  ใส่ไอดีตำบลที่เคยเลือกไว้
+        arrangeByName:  true // กำหนดให้เรียงตามตัวอักษร
+    });
+</script>
+
+
+</body>
+</html>
