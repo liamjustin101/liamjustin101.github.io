@@ -14,16 +14,16 @@ Company : codebee company limited
 			POSTCODE:		'#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
 			arrangeByName:		false // กำหนดให้เรียงตามตัวอักษร
 		}, options);
-		
+
 		return this.each(function() {
 			var xml;
 			var dataUrl = "thailand.xml";
-			
-			
+
+
 			$(function() {
 				initialize();
 			});
-			
+
 			function initialize(){
 				$.ajax({
 					type: "GET",
@@ -31,16 +31,16 @@ Company : codebee company limited
 					dataType: "xml",
 					success: function(xmlDoc) {
 						xml = $(xmlDoc);
-						
+
 						_loadProvince();
 						addEventList();
 					},
 					error: function() {
 						console.log("Failed to get xml");
 					}
-				});  
+				});
 			}
-			
+
 			function _loadProvince()
 			{
 				var list = [];
@@ -49,7 +49,7 @@ Company : codebee company limited
 						var PROVINCE_ID = $(this).children().eq(0).text();
 						var PROVINCE_NAME = $(this).children().eq(2).text();
 						if(PROVINCE_ID)list.push({id:PROVINCE_ID,name:PROVINCE_NAME});
-						
+
 					}
 				});
 				if(Setting.arrangeByName){
@@ -58,7 +58,7 @@ Company : codebee company limited
 					AddToView(list,Setting.PROVINCE);
 				}
 			}
-			
+
 			function _loadAmphur(PROVINCE_ID_SELECTED)
 			{
 				var list = [];
@@ -84,7 +84,7 @@ Company : codebee company limited
 					AddToView(list,Setting.AMPHUR);
 				}
 			}
-			
+
 			function _loadDistrict(AMPHUR_ID_SELECTED)
 			{
 				var list = [];
@@ -105,7 +105,7 @@ Company : codebee company limited
 					AddToView(list,Setting.DISTRICT);
 				}
 			}
-			
+
 			function addEventList(){
 				$(Setting.PROVINCE).change(function(e) {
 					var PROVINCE_ID = $(this).val();
@@ -115,21 +115,21 @@ Company : codebee company limited
 					var AMPHUR_ID = $(this).val();
 					$(Setting.POSTCODE).val($(this).find('option:selected').attr("POSTCODE"));
 					_loadDistrict(AMPHUR_ID);
-				});	
+				});
 			}
 			function AddToView(list,key){
 				for (var i = 0;i<list.length;i++) {
 					if(key != Setting.AMPHUR){
 						$(key).append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");	
 					}else{
-						$(key).append("<option value='"+list[i].id+"' POSTCODE='"+list[i].postcode+"'>"+list[i].name+"</option>");	
+						$(key).append("<option value='"+list[i].id+"' POSTCODE='"+list[i].postcode+"'>"+list[i].name+"</option>");
 					}
 				}
 			}
-			
+
 			function SortByName(a, b){
 			  var aName = a.name.toLowerCase();
-			  var bName = b.name.toLowerCase(); 
+			  var bName = b.name.toLowerCase();
 			  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 			}
 		});

@@ -54,7 +54,7 @@
 
                     <label class="province-label">จังหวัด <span class="uptx">*</span></label>
                     <select id="province" name="province" required oninvalid="this.setCustomValidity('กรุณากรอกจังหวัด')" oninput="setCustomValidity('')" >
-                            <option>- กรุณาเลือกจังหวัด -</option>
+                            <option class="option-text">- กรุณาเลือกจังหวัด -</option>
                         </select>
                     </div>
 
@@ -247,7 +247,7 @@
             ignoreReadonly: true
           });
           liff.init({
-            liffId: '1656660800-5w6WRqEx',
+            liffId: '1657817016-wRo7QlE5',
           }).then(() => {
             if (liff.isLoggedIn()) {
               liff.getProfile()
