@@ -39,24 +39,18 @@ $('#addNewLeadBtn').on('click', function(event) {
   $('#responseAdmin').html("Loading...");
   $("#responseAdmin").css("text-align", "center");
   $("#spinnerAdmin").css("display", "inline-block");
-  /*
-  $.ajaxSetup({
-   headers:{
-      
-   }
-  });
-  */
+
   var jqxhr = $.post(addNewLeadUrl,
-    {
-      firstName: "Liam",
-      lastName: "Justin",
-      phoneNumber: "0892223333",
-      emailAddress: "liamjustin999@gmail.com",
-      lineUid: "U847430d17de9d20a3e27d12a69b39884",
-      customerType: "prospect",
-      bu: "nmt"
-    }
-    , function() {
+  {
+    firstName: "Liam",
+    lastName: "Justin",
+    phoneNumber: "0892223333",
+    emailAddress: "liamjustin999@gmail.com",
+    lineUid: "U847430d17de9d20a3e27d12a69b39884",
+    customerType: "prospect",
+    bu: "nmt"
+  }
+  , function() {
 
   })
   .done(function(data) {

@@ -32,18 +32,19 @@
   </head>
   <body>
 
+
     <div class="lj-line-spacing"></div>
 
     <!-- Navigation tabs -->
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#nmt" type="button" role="tab" aria-controls="nmt" aria-selected="true">NMT</button>
+        <a class="nav-link active" href="#nmt" id="home-tab" data-bs-toggle="tab" data-bs-target="#nmt" type="button" role="tab" aria-controls="nmt" aria-selected="true">NMT</a>
       </li>
       <li class="nav-item">
-         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">Admin</button>
+        <a class="nav-link" href="#admin" id="profile-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">Admin</a>
       </li>
       <li class="nav-item">
-         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</button>
+        <a class="nav-link" href="#nlth" id="profile-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</a>
       </li>
     </ul>
 
@@ -78,8 +79,27 @@
           </pre>
         </div>
       </div>
-      <div class="tab-pane fade" id="nlth" role="tabpanel" aria-labelledby="nlth-tab">NLTH</div>
+      <div class="tab-pane fade" id="nlth" role="tabpanel" aria-labelledby="nlth-tab">
+        <div class="lj-center">
+          NLTH
+        </div>
+
+      </div>
     </div>
+
+    <script>
+      $(function(){
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        $('.nav-tabs a').click(function (e) {
+          $(this).tab('show');
+          var scrollmem = $('body').scrollTop();
+          window.location.hash = this.hash;
+          $('html,body').scrollTop(scrollmem);
+        });
+      });
+    </script>
 
     <script src="api.js"></script>
   </body>
