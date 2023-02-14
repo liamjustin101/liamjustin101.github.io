@@ -99,6 +99,9 @@
           $('html,body').scrollTop(scrollmem);
         });
       });
+      $(window).on('hashchange',function(){ 
+          window.location.reload(true); 
+      });
     </script>
 
     <script src="api.js"></script>
