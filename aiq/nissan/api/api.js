@@ -49,7 +49,8 @@ $('#addNewLeadBtn').on('click', function(event) {
       lastName: "Justin",
       phoneNumber: "0892223333",
       emailAddress: "liamjustin999@gmail.com",
-      lineUid: "U847430d17de9d20a3e27d12a69b39884",
+      //lineUid: "U847430d17de9d20a3e27d12a69b39884",
+      lineUid: "U7cbc31a83b052dce23f5446559fb6c73",
       customerType: "prospect",
       bu: "nmt"
     }
