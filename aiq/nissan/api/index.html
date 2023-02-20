@@ -79,6 +79,10 @@
       pre {
         overflow: visible;
       }
+      hr {
+        color: red;
+        border: 1px solid gray;
+      }
     </style>   
   </head>
   <body>
@@ -89,16 +93,16 @@
     <!-- Navigation tabs -->
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="#nmt" id="home-tab" data-bs-toggle="tab" data-bs-target="#nmt" type="button" role="tab" aria-controls="nmt" aria-selected="true">NMT</a>
+        <a class="nav-link active" href="#nmt" id="nmt-tab" data-bs-toggle="tab" data-bs-target="#nmt" type="button" role="tab" aria-controls="nmt" aria-selected="true">NMT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#admin" id="profile-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">LineAdmin</a>
+        <a class="nav-link" href="#admin" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">LineAdmin</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#nlth" id="profile-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</a>
+        <a class="nav-link" href="#nlth" id="nlth-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#google-map" id="profile-tab" data-bs-toggle="tab" data-bs-target="#google-map" type="button" role="tab" aria-controls="google-map" aria-selected="false">Google Map</a>
+        <a class="nav-link" href="#google-map" id="google-map-tab" data-bs-toggle="tab" data-bs-target="#google-map" type="button" role="tab" aria-controls="google-map" aria-selected="false">Google Map</a>
       </li>
     </ul>
     <div id="spinnerNmt" class="lj-align-spinner-center-screen spinner-border text-secondary lj-position-fixed lj-hidden" role="status">
@@ -128,6 +132,8 @@
         <br>
         
         <hr>
+        
+        <div class="lj-line-spacing-small"></div>
         <div class="lj-header">
           Endpoint: <div id="getSessionIdHeader"></div>
         </div>
@@ -139,6 +145,7 @@
         <br>
         
         <hr>
+        <div class="lj-line-spacing-small"></div>
         <div class="lj-header">
           Endpoint: <div id="verifyOwnerShipHeader"></div>
         </div>
@@ -151,7 +158,9 @@
         </div>
         <div class="lj-line-spacing"></div>
       </div>
+
       <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+        
         <div class="lj-header">
           Endpoint: <div id="addNewLeadHeader"></div>
         </div>
