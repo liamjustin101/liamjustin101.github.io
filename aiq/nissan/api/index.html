@@ -12,15 +12,21 @@
       .lj-line-spacing {
         height: 32px;
       }
+      .lj-line-spacing-small {
+        height: 16px;
+      }
       .lj-position-absolute {
         position: absolute;
        
+      }
+      .lj-position-fixed {
+        position: fixed;
       }
       .lj-max-width-screen {
         max-width: 600px;
       }
       .lj-max-width {
-        max-width: 330px;
+        max-width: 360px;
         width: fit-content;
       }
       .lj-center-div {
@@ -40,6 +46,39 @@
         background-color: #eeeeee;
         color: black;
       }
+      .lj-width-100p {
+        width: 100%;
+      }
+      .lj-align-spinner-center-screen {
+        left: calc(50% - 16px);
+        top: 40%;
+      }
+      .lj-right-small {
+        right: 32px;
+      }
+      .lj-result-box {
+        background-color: lightyellow;
+        border-radius: 8px;
+        opacity: 0.8;
+        border: 1px solid orangered;
+        padding: 8px;
+      
+        width: 400px;
+        height: 600px;
+      }
+      .lj-box-clost-btn {
+        position: fixed;
+        right: 48px;
+      }
+      #google-map img {
+        width: 64px;
+      }
+      .lj-inline-block {
+        display: inline-block;
+      }
+      pre {
+        overflow: visible;
+      }
     </style>   
   </head>
   <body>
@@ -58,12 +97,48 @@
       <li class="nav-item">
         <a class="nav-link" href="#nlth" id="profile-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#google-map" id="profile-tab" data-bs-toggle="tab" data-bs-target="#google-map" type="button" role="tab" aria-controls="google-map" aria-selected="false">Google Map</a>
+      </li>
     </ul>
-
+    <div id="spinnerNmt" class="lj-align-spinner-center-screen spinner-border text-secondary lj-position-fixed lj-hidden" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div id="resultBox" class="overflow-auto lj-right-small lj-result-box lj-center-div lj-position-fixed lj-max-width lj-hidden">
+      <button type="button" id="boxCloseBtn" class="lj-box-clost-btn btn-close" aria-label="Close"></button>
+      <pre id="responseNmt">
+            
+      </pre>
+    </div>
     <!-- Tab content -->
     <div class="lj-line-spacing"></div>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="nmt" role="tabpanel" aria-labelledby="nmt-tab">
+        <div class="lj-header">
+          Endpoint: <div id="registerConsentHeader"></div>
+        </div>
+        <div class="lj-line-spacing"></div>
+        <div class="lj-center">
+          <div class="label label-default lj-max-width">LINE UID</div>
+          <input class="form-control" id="line-uid" aria-describedby="lineUid" placeholder="LINE UID">
+          <div class="lj-line-spacing"></div>
+          <button id="registerConsentBtn" type="button" class="btn btn-primary">Register Consent</button>
+          
+        </div>
+        <br>
+        
+        <hr>
+        <div class="lj-header">
+          Endpoint: <div id="getSessionIdHeader"></div>
+        </div>
+        <div class="lj-line-spacing"></div>
+        <div class="lj-center">
+          <button id="getSessionIdBtn" type="button" class="btn btn-primary">Get Session ID</button>
+          
+        </div>
+        <br>
+        
+        <hr>
         <div class="lj-header">
           Endpoint: <div id="verifyOwnerShipHeader"></div>
         </div>
@@ -74,12 +149,7 @@
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
-        <br>
-        <div class="lj-center-div lj-max-width">
-          <pre id="responseNmt">
-            
-          </pre>
-        </div>
+        <div class="lj-line-spacing"></div>
       </div>
       <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
         <div class="lj-header">
@@ -87,8 +157,15 @@
         </div>
         <div class="lj-line-spacing"></div>
         <div class="lj-max-width lj-center-div">
+          <div class="label label-default lj-max-width">LINE UID</div>
+          <select id="lineUid" class="lj-width-100p form-select lj-max-width lj-center-div">
+            <option value="U847430d17de9d20a3e27d12a69b39884" selected>U847430d17de9d20a3e27d12a69b39884</option>
+            <option value="U7cbc31a83b052dce23f5446559fb6c73">U7cbc31a83b052dce23f5446559fb6c73</option>
+          </select>
+          <div class="lj-line-spacing-small"></div>
           <div class="label label-default lj-max-width">Content-Type</div>
-          <select id="contentType" class="form-select lj-max-width lj-center-div">
+          
+          <select id="contentType" class="lj-width-100p form-select lj-max-width lj-center-div">
             <option value="application/x-www-form-urlencoded" selected>application/x-www-form-urlencoded</option>
             <option value="application/json">application/json</option>
             <option value="multipart/form-data">multipart/form-data</option>
@@ -114,6 +191,61 @@
         </div>
 
       </div>
+      <div class="tab-pane fade" id="google-map" role="tabpanel" aria-labelledby="google-map-tab">
+        <div id="google-map" class="lj-center">
+          <div class="lj-line-spaceing">&nbsp;</div>
+          <button id="getDistanceMatrixBtn" type="button" class="btn btn-primary">Get Distance Matrix</button>
+          <div class="lj-line-spaceing">&nbsp;</div>
+          <div class="label label-default lj-max-width"><b>From Closest to Farthest</b></div>
+          <div id="matrixResult" class="label label-default lj-max-width">Press "Get Distance Matrix" button to calculate.</div>
+          <div class="label label-default lj-max-width"><b>Your Location</b></div>
+          <div class="label label-default lj-max-width"> Latitude: <div class="lj-inline-block" id="your-loc-lat"></div></div>
+          <div class="label label-default lj-max-width"> Longitude: <div class="lj-inline-block" id="your-loc-long"></div></div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Dealer</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Address</th>
+                <th scope="col">Lat</th>
+                <th scope="col">Long</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th id="dealer1-name" scope="row"></th>
+                <td><img src="images/car-dealer.png"></td>
+                <td id="dealer1-address"></td>
+                <td id="dealer1-lat"></td>
+                <td id="dealer1-long"></td>
+              </tr>
+              <tr>
+                <th id="dealer2-name" scope="row"></th>
+                <td><img src="images/car-dealer.png"></td>
+                <td id="dealer2-address"></td>
+                <td id="dealer2-lat"></td>
+                <td id="dealer2-long"></td>
+              </tr>
+              <tr>
+                <th id="dealer3-name" scope="row"></th>
+                <td><img src="images/car-dealer.png"></td>
+                <td id="dealer3-address" ></td>
+                <td id="dealer3-lat" ></td>
+                <td id="dealer3-long" ></td>
+              </tr>
+              <tr>
+                <th id="dealer4-name" scope="row"></th>
+                <td><img src="images/car-dealer.png"></td>
+                <td id="dealer4-address" ></td>
+                <td id="dealer4-lat" ></td>
+                <td id="dealer4-long" ></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
     </div>
     </div>
 
@@ -136,9 +268,91 @@
       $( document ).ready(function() {
           $( "#verifyOwnerShipHeader" ).html(verifyOwnershipUrl);
           $( "#addNewLeadHeader" ).html(addNewLeadUrl);
+          $( "#getSessionIdHeader" ).html(getSessionIdUrl);
+          $( "#registerConsentHeader" ).html(registerConsentUrl);
+
+          $('#line-uid').val(new RandExp(/U[0-9a-f]{32}/).gen());
       });
+
+      $('#boxCloseBtn').click(function(e) { 
+        $("#resultBox").hide();
+      });
+
+      var dealers = [
+        {
+          "name": "A",
+          "address": "Phahonyothin Road, Khwaeng Chatuchak, Khet Chatuchak, Krung Thep Maha Nakhon 10900, Thailand",
+          "lat": "13.825033",
+          "long": "100.5666365"
+        },
+        {
+          "name": "B",
+          "address": "415 Phahonyothin Road, Khet, Phaya Thai, Bangkok 10400, Thailand",
+          "lat": "13.7894463",
+          "long": "100.5479142"
+        },
+        {
+          "name": "C",
+          "address": "9 Phaya Thai Rd, Khwaeng Thanon Phaya Thai, Khet Ratchathewi, Krung Thep Maha Nakhon 10400, Thailand",
+          "lat": "13.7621407",
+          "long": "100.5371527"
+        },
+        {
+          "name": "D",
+          "address": "Soi Phaya Nak, Khwaeng Thanon Phetchaburi, Khet Ratchathewi, Krung Thep Maha Nakhon 10400, Thailand",
+          "lat": "13.7508749",
+          "long": "100.5292931"
+        }
+      ]
+      var i = 1;
+      $.each(dealers, function(key,value) {
+        $('#dealer' + i + '-name').html(value.name);
+        $('#dealer' + i + '-address').html(value.address);
+        $('#dealer' + i + '-lat').html(value.lat);
+        $('#dealer' + i + '-long').html(value.long);
+        i++;
+      }); 
+
+      $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href") // activated tab
+      
+        if(target == "#google-map")
+        {
+          navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }
+        
+      });
+
+      function onSuccess(position) {
+        
+        lat = position.coords.latitude
+        long = position.coords.longitude
+        $('#your-loc-lat').html(lat)
+        $('#your-loc-long').html(long)
+
+        distanceMatrixUrl += "origins=" + lat + "," + long + "&destinations="
+        var i = 1;
+        $.each(dealers, function(key,value) {
+          var dealerLat = value.lat;
+          var dealerLong = value.long;
+          
+          if(i > 1)
+            distanceMatrixUrl += "|";
+          distanceMatrixUrl += dealerLat + "," + dealerLong;
+
+          i++;
+        });
+        distanceMatrixUrl += "&key=" + googleMapApiKey
+        console.log(distanceMatrixUrl)
+      }
+      function onError() {
+        
+       
+      }
     </script>
 
+    <script src="randexp.min.js"></script>
     <script src="api.js"></script>
+
   </body>
 </html>

@@ -1,7 +1,15 @@
+/* Google Map */
+var distanceMatrixUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?"
+var googleMapApiKey = "AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0"
+var dealerNames = [
+  "A","B","C","D"
+]
+
 /* NMT */
 var apiBasePathNmt = "https://virtserver.swaggerhub.com/LiamStudio/nmt-crm_api/v1-oas3/api/"
 var verifyOwnershipUrl = apiBasePathNmt + "VerifyNissanOwnership"
-
+var getSessionIdUrl = "https://qa.nissancmp.com/controller/registerSystems"
+var registerConsentUrl = "https://qa.nissancmp.com/controller/registerConsent"
 
 /* Admin */
 var apiBasePathAdmin = "https://nissan.thplayground.app/api/v1/"
@@ -9,8 +17,48 @@ var addNewLeadUrl = apiBasePathAdmin + "customers"
 
 /* NLTH */
 
+/* Google Map */
+$('#getDistanceMatrixBtn').on('click', function(event) {
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+  var jqxhr = $.get(distanceMatrixUrl, function() {
+
+  })
+  .done(function(data) {
+    $("#responseNmt").css("text-align", "left");
+    $('#responseNmt').html(JSON.stringify(data, null, 4));
+    $("#spinnerNmt").hide();
+    var results = data.rows[0].elements
+    for(i=0;i<results.length;i++)
+    {
+      results[i].id = i
+    }
+    results.sort((a, b) => a.distance.value - b.distance.value)
+    var matrixResult = "";
+    for(i=0;i<results.length;i++)
+    {
+      matrixResult += dealerNames[results[i].id]
+      if(i<results.length-1)
+        matrixResult += " \u279c "
+    }
+    $("#matrixResult").html(matrixResult);
+  })
+  .fail(function() {
+    $("#responseNmt").css("text-align", "center");
+    $('#responseNmt').html("Error");
+  })
+  .always(function() {
+     $("#spinnerNmt").hide();
+     $("#resultBox").show();
+  });
+});
+
 /* NMT */
 $('#verifyOwnershipBtn').on('click', function(event) {
+  $("#resultBox").hide();
   $("#spinnerNmt").show();
   $('#responseNmt').html("Loading...");
   $("#responseNmt").css("text-align", "center");
@@ -29,6 +77,110 @@ $('#verifyOwnershipBtn').on('click', function(event) {
   })
   .always(function() {
      $("#spinnerNmt").hide();
+     $("#resultBox").show();
+  });
+});
+
+$('#registerConsentBtn').on('click', function(event) {
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+  var jqxhr = $.post(getSessionIdUrl, {
+      appID: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ"
+  }
+  ,function() {
+
+  })
+  .done(function(data) {
+    var lineUid = $("#line-uid").val();
+    var jqxhr = $.post(registerConsentUrl, {
+      appKey: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ",
+      sessKey: JSON.parse(data).sessKey,
+      Src_01:"CRM", 
+      Src_02:"95408", 
+      Src_03:"PROSPECT",  
+      PersonId_01:"PROS00001",  
+      PersonId_02:lineUid, 
+      F_Name:"Sarawut2",  
+      L_Name:"Treerat", 
+      Phone_No:"0812345678",  
+      Email_Addr:"tester64423@gmail.com", 
+      Card_Id:"2101000444123",
+      Line_Id:"liam9999", 
+      Consent_Row1:"1", 
+      Consent_Row2:"1", 
+      Consent_Row3:"1",
+      Consent_Row4:"", 
+      Consent_Row5:"", 
+      Consent_Row6:"", 
+      Consent_Row7:"", 
+      Consent_Row8:"", 
+      Consent_Row9:"",  
+      Consent_Row10:"", 
+      Consent_Row11:"", 
+      Consent_Row12:"", 
+      Consent_Row13:"", 
+      Consent_Row14:"", 
+      Consent_Row15:"", 
+      ConsentRegisDate:"20200414080322",  
+      File_Path:"", 
+      Customer_Type:"1",
+      Register_By:"liam"
+    }
+    ,function() {
+
+    })
+    .done(function(data) {
+      $("#responseNmt").css("text-align", "left");
+      $('#responseNmt').html(JSON.stringify(JSON.parse(data),null,4));
+      $("#spinnerNmt").hide();
+    })
+    .fail(function() {
+      $("#responseNmt").css("text-align", "center");
+      $('#responseNmt').html("Error");
+    })
+    .always(function() {
+       $("#spinnerNmt").hide();
+       $("#resultBox").show();
+    });
+  })
+  .fail(function() {
+    $("#responseNmt").css("text-align", "center");
+    $('#responseNmt').html("Error");
+  })
+  .always(function() {
+     $("#spinnerNmt").hide();
+     $("#resultBox").show();
+  });
+});
+
+
+$('#getSessionIdBtn').on('click', function(event) {
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+  var jqxhr = $.post(getSessionIdUrl, {
+      appID: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ"
+  }
+  ,function() {
+
+  })
+  .done(function(data) {
+    $("#responseNmt").css("text-align", "left");
+    $('#responseNmt').html(JSON.stringify(JSON.parse(data),null,4));
+    $("#spinnerNmt").hide();
+  })
+  .fail(function() {
+    $("#responseNmt").css("text-align", "center");
+    $('#responseNmt').html("Error");
+  })
+  .always(function() {
+     $("#spinnerNmt").hide();
+     $("#resultBox").show();
   });
 });
 
@@ -40,6 +192,7 @@ $('#addNewLeadBtn').on('click', function(event) {
   $("#spinnerAdmin").css("display", "inline-block");
 
   var contentType = $('#contentType').find(":selected").val();
+  var lineUid = $('#lineUid').find(":selected").val();
   if(contentType == "application/x-www-form-urlencoded")
   {
 
@@ -49,8 +202,7 @@ $('#addNewLeadBtn').on('click', function(event) {
       lastName: "Justin",
       phoneNumber: "0892223333",
       emailAddress: "liamjustin999@gmail.com",
-      //lineUid: "U847430d17de9d20a3e27d12a69b39884",
-      lineUid: "U7cbc31a83b052dce23f5446559fb6c73",
+      lineUid: lineUid,
       customerType: "prospect",
       bu: "nmt"
     }
