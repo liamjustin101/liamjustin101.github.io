@@ -6,6 +6,9 @@ var dealerNames = [
 ]
 var userLat
 var userLong
+var markerIconUrl = "https://static.wixstatic.com/media/de2f98_7aff7a58443b42a2857b87f3d14ce15b~mv2.png"
+var mockMarker
+var matrixResult = ""
 
 /* NMT */
 var apiBasePathNmt = "https://virtserver.swaggerhub.com/LiamStudio/nmt-crm_api/v1-oas3/api/"
@@ -24,12 +27,27 @@ var addNewLeadUrl = apiBasePathAdmin + "customers"
 /* NLTH */
 
 /* Google Map */
-$('#getDistanceMatrixBtn').on('click', function(event) {
-  $("#resultBox").hide();
-  $("#spinnerNmt").show();
-  $('#responseNmt').html("Loading...");
-  $("#responseNmt").css("text-align", "center");
-  $("#spinnerNmt").css("display", "inline-block");
+
+function getLongAndLat() {
+    return new Promise((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    );
+}
+function getDistanceMatrix(userCoord) {
+  matrixResult = "Calculating distance matrix...";
+  userLat = userCoord.lat
+  userLong = userCoord.lng
+  if(typeof userLat === 'undefined' || typeof userLong === 'undefined')
+  {
+    matrixResult = "Error: Cannot read your current location."
+    $("#matrixResult").html(matrixResult);
+
+    $("#spinnerNmt").hide();
+    
+    return
+  }
+  $('#your-loc-lat').html(userLat.toFixed(7))
+  $('#your-loc-long').html(userLong.toFixed(7))
   var origin1 = { lat: userLat, lng: userLong };
   var destinationA = { lat: parseFloat(dealers[0].lat), lng: parseFloat(dealers[0].long) };
   var destinationB = { lat: parseFloat(dealers[1].lat), lng: parseFloat(dealers[1].long) };
@@ -53,9 +71,10 @@ $('#getDistanceMatrixBtn').on('click', function(event) {
     $("#responseNmt").css("text-align", "left");
     $('#responseNmt').html(JSON.stringify(data, null, 4));
     $("#spinnerNmt").hide();
-    var matrixResult = "";
+    
     if(status == "OK")
     {
+      matrixResult = "";
       var results = data.rows[0].elements
       for(i=0;i<results.length;i++)
       {
@@ -74,49 +93,42 @@ $('#getDistanceMatrixBtn').on('click', function(event) {
     {
       matrixResult = "Error"
     }
-    $("#matrixResult").html(matrixResult);
 
+    $("#matrixResult").html(matrixResult);
     $("#spinnerNmt").hide();
     $("#resultBox").show();
+    
   }
-  /*
+}
+$('#getDistanceMatrixBtn').on('click', async function(event) {
+  
   $("#resultBox").hide();
   $("#spinnerNmt").show();
   $('#responseNmt').html("Loading...");
   $("#responseNmt").css("text-align", "center");
   $("#spinnerNmt").css("display", "inline-block");
-  var jqxhr = $.get(distanceMatrixUrl, function() {
 
-  })
-  .done(function(data) {
-    $("#responseNmt").css("text-align", "left");
-    $('#responseNmt').html(JSON.stringify(data, null, 4));
-    $("#spinnerNmt").hide();
-    var results = data.rows[0].elements
-    for(i=0;i<results.length;i++)
-    {
-      results[i].id = i
-    }
-    results.sort((a, b) => a.distance.value - b.distance.value)
-    var matrixResult = "";
-    for(i=0;i<results.length;i++)
-    {
-      matrixResult += dealerNames[results[i].id]
-      if(i<results.length-1)
-        matrixResult += " \u279c "
-    }
-    $("#matrixResult").html(matrixResult);
-  })
-  .fail(function() {
-    $("#responseNmt").css("text-align", "center");
-    $('#responseNmt').html("Error");
-  })
-  .always(function() {
-     $("#spinnerNmt").hide();
-     $("#resultBox").show();
-  });
-  */
+  var userCoord = await getLongAndLat()
+  getDistanceMatrix({ lat: userCoord.coords.latitude, lng: userCoord.coords.longitude })
+  
+  
 });
+
+$('#getDistanceMatrixFromMockLocBtn').on('click', async function(event) {
+  
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+
+  var userCoord = { lat: mockMarker.getPosition().lat(), lng: mockMarker.getPosition().lng() }
+  
+  getDistanceMatrix(userCoord)
+  
+
+});
+
 
 /* NMT */
 $('#verifyOwnershipBtn').on('click', function(event) {
