@@ -4,6 +4,8 @@ var googleMapApiKey = "AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0"
 var dealerNames = [
   "A","B","C","D"
 ]
+var userLat
+var userLong
 
 /* NMT */
 var apiBasePathNmt = "https://virtserver.swaggerhub.com/LiamStudio/nmt-crm_api/v1-oas3/api/"
@@ -23,6 +25,61 @@ var addNewLeadUrl = apiBasePathAdmin + "customers"
 
 /* Google Map */
 $('#getDistanceMatrixBtn').on('click', function(event) {
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+  var origin1 = { lat: userLat, lng: userLong };
+  var destinationA = { lat: parseFloat(dealers[0].lat), lng: parseFloat(dealers[0].long) };
+  var destinationB = { lat: parseFloat(dealers[1].lat), lng: parseFloat(dealers[1].long) };
+  var destinationC = { lat: parseFloat(dealers[2].lat), lng: parseFloat(dealers[2].long) };
+  var destinationD = { lat: parseFloat(dealers[3].lat), lng: parseFloat(dealers[3].long) };
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: [destinationA, destinationB, destinationC, destinationD],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false,
+    }, callback);
+
+  function callback(response, status) {
+    // See Parsing the Results for
+    // the basics of a callback function.
+    var data = response
+    $("#responseNmt").css("text-align", "left");
+    $('#responseNmt').html(JSON.stringify(data, null, 4));
+    $("#spinnerNmt").hide();
+    var matrixResult = "";
+    if(status == "OK")
+    {
+      var results = data.rows[0].elements
+      for(i=0;i<results.length;i++)
+      {
+        results[i].id = i
+      }
+      results.sort((a, b) => a.distance.value - b.distance.value)
+      
+      for(i=0;i<results.length;i++)
+      {
+        matrixResult += dealerNames[results[i].id]
+        if(i<results.length-1)
+          matrixResult += " \u279c "
+      }
+    }
+    else
+    {
+      matrixResult = "Error"
+    }
+    $("#matrixResult").html(matrixResult);
+
+    $("#spinnerNmt").hide();
+    $("#resultBox").show();
+  }
+  /*
   $("#resultBox").hide();
   $("#spinnerNmt").show();
   $('#responseNmt').html("Loading...");
@@ -58,6 +115,7 @@ $('#getDistanceMatrixBtn').on('click', function(event) {
      $("#spinnerNmt").hide();
      $("#resultBox").show();
   });
+  */
 });
 
 /* NMT */

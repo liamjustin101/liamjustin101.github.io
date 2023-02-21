@@ -364,6 +364,9 @@
         $('#your-loc-lat').html(lat)
         $('#your-loc-long').html(long)
 
+        userLat = lat
+        userLong = long
+
         distanceMatrixUrl += "origins=" + lat + "," + long + "&destinations="
         var i = 1;
         $.each(dealers, function(key,value) {
@@ -409,6 +412,29 @@
       }
     </script>
 
+    <script>
+
+      function initMap() {
+        /*
+        const bounds = new google.maps.LatLngBounds();
+        const markersArray = [];
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 55.53, lng: 9.4 },
+          zoom: 10,
+        });
+        */
+        // initialize services
+        const geocoder = new google.maps.Geocoder();
+        const service = new google.maps.DistanceMatrixService();
+        // build request
+        
+      }
+    </script>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0&callback=initMap&v=weekly"
+      defer
+    ></script>
     <script src="randexp.min.js"></script>
     <script src="api.js"></script>
 
