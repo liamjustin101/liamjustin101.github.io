@@ -118,10 +118,24 @@
     <div class="lj-line-spacing"></div>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="nmt" role="tabpanel" aria-labelledby="nmt-tab">
+        
+        <div class="lj-line-spacing"></div>
         <div class="lj-header">
           Endpoint: <div id="registerConsentHeader"></div>
         </div>
-        <div class="lj-line-spacing"></div>
+
+        <div class="lj-line-spacing-small"></div>
+        <div class="lj-max-width">
+          <div class="label label-default lj-max-width">
+            Environment
+          </div>
+          <select id="cmsEnv2" onchange="updateEndpoint2()" class="lj-width-100p form-select lj-max-width lj-center-div">
+              <option value="QA" selected>QA</option>
+              <option value="Prod">Prod</option>
+          </select>
+        </div>
+
+        <div class="lj-line-spacing-small"></div>
         <div class="lj-center">
           <div class="label label-default lj-max-width">LINE UID</div>
           <input class="form-control" id="line-uid" aria-describedby="lineUid" placeholder="LINE UID">
@@ -137,6 +151,16 @@
         <div class="lj-header">
           Endpoint: <div id="getSessionIdHeader"></div>
         </div>
+        <div class="lj-line-spacing-small"></div>
+        <div class="lj-max-width">
+          <div class="label label-default lj-max-width">
+            Environment
+          </div>
+          <select id="cmsEnv1" onchange="updateEndpoint1()" class="lj-width-100p form-select lj-max-width lj-center-div">
+              <option value="QA" selected>QA</option>
+              <option value="Prod">Prod</option>
+          </select>
+        </div>
         <div class="lj-line-spacing"></div>
         <div class="lj-center">
           <button id="getSessionIdBtn" type="button" class="btn btn-primary">Get Session ID</button>
@@ -145,6 +169,7 @@
         <br>
         
         <hr>
+        
         <div class="lj-line-spacing-small"></div>
         <div class="lj-header">
           Endpoint: <div id="verifyOwnerShipHeader"></div>
@@ -357,6 +382,30 @@
       function onError() {
         
        
+      }
+
+      function updateEndpoint1() {
+        var env = $('#cmsEnv1').find(":selected").val();
+        if(env == "QA")
+        {
+          $( "#getSessionIdHeader" ).html(getSessionIdUrl);
+        }
+        else
+        {
+          $( "#getSessionIdHeader" ).html(getSessionIdUrlProd);
+        }
+      }
+
+      function updateEndpoint2() {
+        var env = $('#cmsEnv2').find(":selected").val();
+        if(env == "QA")
+        {
+          $( "#registerConsentHeader" ).html(registerConsentUrl);
+        }
+        else
+        {
+          $( "#registerConsentHeader" ).html(registerConsentUrlProd);
+        }
       }
     </script>
 

@@ -10,6 +10,10 @@ var apiBasePathNmt = "https://virtserver.swaggerhub.com/LiamStudio/nmt-crm_api/v
 var verifyOwnershipUrl = apiBasePathNmt + "VerifyNissanOwnership"
 var getSessionIdUrl = "https://qa.nissancmp.com/controller/registerSystems"
 var registerConsentUrl = "https://qa.nissancmp.com/controller/registerConsent"
+var getSessionIdUrlProd = "https://nissancmp.com/controller/registerSystems";
+var registerConsentUrlProd = "https://nissancmp.com/controller/registerConsent";
+var cmsAppId = "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ"
+var cmsAppIdProd = "INT93wh0UUioSwm5LNC123Rt22l4LsK2K6Yfv96Z"
 
 /* Admin */
 var apiBasePathAdmin = "https://nissan.thplayground.app/api/v1/"
@@ -87,16 +91,42 @@ $('#registerConsentBtn').on('click', function(event) {
   $('#responseNmt').html("Loading...");
   $("#responseNmt").css("text-align", "center");
   $("#spinnerNmt").css("display", "inline-block");
-  var jqxhr = $.post(getSessionIdUrl, {
-      appID: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ"
+  var env = $('#cmsEnv2').find(":selected").val();
+
+  var url;
+  var appId;
+  if(env == "QA")
+  {
+    url = getSessionIdUrl
+    appId = cmsAppId
+  }
+  else
+  {
+    url = getSessionIdUrlProd
+    appId = cmsAppIdProd
+  }
+  var jqxhr = $.post(url, {
+      appID: appId
   }
   ,function() {
 
   })
   .done(function(data) {
     var lineUid = $("#line-uid").val();
-    var jqxhr = $.post(registerConsentUrl, {
-      appKey: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ",
+    var url;
+    var appId;
+    if(env == "QA")
+    {
+      url = registerConsentUrl
+      appId = cmsAppId
+    }
+    else
+    {
+      url = registerConsentUrlProd
+      appId = cmsAppIdProd
+    }
+    var jqxhr = $.post(url, {
+      appKey: appId,
       sessKey: JSON.parse(data).sessKey,
       Src_01:"CRM", 
       Src_02:"95408", 
@@ -163,8 +193,21 @@ $('#getSessionIdBtn').on('click', function(event) {
   $('#responseNmt').html("Loading...");
   $("#responseNmt").css("text-align", "center");
   $("#spinnerNmt").css("display", "inline-block");
-  var jqxhr = $.post(getSessionIdUrl, {
-      appID: "LIN77770AUioSwm52289yuTtOOl2PoK2K6Y333ZZ"
+  var env = $('#cmsEnv1').find(":selected").val();
+  var url;
+  var appId;
+  if(env == "QA")
+  {
+    url = getSessionIdUrl
+    appId = cmsAppId
+  }
+  else
+  {
+    url = getSessionIdUrlProd
+    appId = cmsAppIdProd
+  }
+  var jqxhr = $.post(url, {
+      appID: appId
   }
   ,function() {
 
