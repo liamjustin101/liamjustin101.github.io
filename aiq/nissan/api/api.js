@@ -201,14 +201,14 @@ $('#registerConsentBtn').on('click', function(event) {
       Src_01:"CRM", 
       Src_02:"95408", 
       Src_03:"PROSPECT",  
-      PersonId_01:"PROS00001",  
-      PersonId_02:lineUid, 
+      PersonId_01:makeId(15),  
+      PersonId_02:"", 
       F_Name:"Sarawut2",  
       L_Name:"Treerat", 
       Phone_No:"0812345678",  
       Email_Addr:"tester64423@gmail.com", 
       Card_Id:"2101000444123",
-      Line_Id:"liam9999", 
+      Line_Id:lineUid, 
       Consent_Row1:"1", 
       Consent_Row2:"1", 
       Consent_Row3:"1",
@@ -236,10 +236,14 @@ $('#registerConsentBtn').on('click', function(event) {
       $("#responseNmt").css("text-align", "left");
       $('#responseNmt').html(JSON.stringify(JSON.parse(data),null,4));
       $("#spinnerNmt").hide();
+      $("#spinnerNmt").hide();
+      $("#resultBox").show();
     })
     .fail(function() {
       $("#responseNmt").css("text-align", "center");
       $('#responseNmt').html("Error");
+      $("#spinnerNmt").hide();
+      $("#resultBox").show();
     })
     .always(function() {
        $("#spinnerNmt").hide();
@@ -251,8 +255,7 @@ $('#registerConsentBtn').on('click', function(event) {
     $('#responseNmt').html("Error");
   })
   .always(function() {
-     $("#spinnerNmt").hide();
-     $("#resultBox").show();
+     
   });
 });
 

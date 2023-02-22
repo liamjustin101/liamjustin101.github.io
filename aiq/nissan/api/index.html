@@ -433,9 +433,10 @@
         long = long/dealers.length
         const centerPos = { lat: lat, lng: long };
         const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 12,
+          zoom: 13,
           center: centerPos,
-          gestureHandling: 'greedy'
+          gestureHandling: 'greedy',
+          scrollwheel: false
         });
 
         for(i=0;i<dealers.length;i++)
@@ -483,6 +484,7 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0&callback=initMap&v=weekly"
       defer
     ></script>
+    <script src="helper.js"></script>
     <script src="randexp.min.js"></script>
     <script src="api.js"></script>
 
