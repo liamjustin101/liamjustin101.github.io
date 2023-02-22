@@ -417,10 +417,10 @@
 
       function initMap() {
         const markerIcon = {
-            url: markerIconUrl, // url
-            scaledSize: new google.maps.Size(50, 50), // scaled size
-            origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
+            url: markerIconUrl, 
+            scaledSize: new google.maps.Size(50, 50), 
+            origin: new google.maps.Point(0,0), 
+            anchor: new google.maps.Point(0, 0) 
         };
         var lat = 0;
         var long = 0;
@@ -449,10 +449,9 @@
             icon: markerIcon
           });
         }
-        // initialize services
+    
         const geocoder = new google.maps.Geocoder();
         const service = new google.maps.DistanceMatrixService();
-        // build request
 
         mockMarker = new google.maps.Marker({
           position: centerPos,
@@ -461,20 +460,11 @@
           draggable: true
         });
         map.addListener("center_changed", () => {
-          // 3 seconds after the center of the map has changed, pan back to the
-          // marker.
-          /*
-          window.setTimeout(() => {
-            map.panTo(marker.getPosition());
-          }, 3000);
-          */
+          
         });
 
         mockMarker.addListener("click", () => {
-          /*
-          map.setZoom(8);
-          map.setCenter(marker.getPosition());
-          */
+        
         });
         
       }

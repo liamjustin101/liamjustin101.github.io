@@ -65,8 +65,6 @@ function getDistanceMatrix(userCoord) {
     }, callback);
 
   function callback(response, status) {
-    // See Parsing the Results for
-    // the basics of a callback function.
     var data = response
     $("#responseNmt").css("text-align", "left");
     $('#responseNmt').html(JSON.stringify(data, null, 4));
