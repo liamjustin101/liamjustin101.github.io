@@ -1,3 +1,5 @@
+/* Proxy */
+var proxyServerUrl = "https://liamstudio.com/api-proxy/?url="
 /* Google Map */
 var distanceMatrixUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?"
 var googleMapApiKey = "AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0"
@@ -22,11 +24,16 @@ var cmsAppIdProd = "INT93wh0UUioSwm5LNC123Rt22l4LsK2K6Yfv96Z"
 
 /* Admin */
 var apiBasePathAdmin = "https://nissan.thplayground.app/api/v1/"
-var addNewLeadUrl = apiBasePathAdmin + "customers"
+var addNewLeadUrl = proxyServerUrl + apiBasePathAdmin + "customers"
 
 /* NLTH */
 
 /* Google Map */
+
+/* SMS */
+var sendSmsUrl = proxyServerUrl + "https://api-v2.thaibulksms.com/sms"
+var smsUsername = "rM5p0k53ca00jR3hcn_R8yq30Tl-a1"
+var smsPassword = "BDdF8IgZ3MmISI-Q38Th50nlqkBbbJ"
 
 function getLongAndLat() {
     return new Promise((resolve, reject) =>
@@ -125,6 +132,36 @@ $('#getDistanceMatrixFromMockLocBtn').on('click', async function(event) {
   getDistanceMatrix(userCoord)
   
 
+});
+
+$('#getLocationFromPlaceBtn').on('click', async function(event) {
+  
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+
+ 
+  userLat = markerOnPlace.getPosition().lat()
+  userLong = markerOnPlace.getPosition().lng()
+ 
+  if(typeof userLat === 'undefined' || typeof userLong === 'undefined')
+  {
+    $('#responseNmt').html("Error");
+
+    $("#spinnerNmt").hide();
+    
+    return
+  }
+  $('#your-loc-lat').html(userLat)
+  $('#your-loc-long').html(userLong)
+
+  $('#responseNmt').html("<br>Latitude: " + userLat.toFixed(7) + ", Longitude: " + userLong.toFixed(7));
+  $("#spinnerNmt").hide();
+  $("#resultBox").show();
+  
+  
 });
 
 
@@ -325,7 +362,7 @@ $('#addNewLeadBtn').on('click', function(event) {
     })
     .done(function(data) {
       $("#responseAdmin").css("text-align", "left");
-      $('#responseAdmin').html(JSON.stringify(data, null, 4));
+      $('#responseAdmin').html(JSON.stringify(JSON.parse(data), null, 2));
       $("#spinnerAdmin").hide();
     })
     .fail(function(request, status, error) {
@@ -414,5 +451,40 @@ $('#addNewLeadBtn').on('click', function(event) {
 
 /* NLTH */
 
+/* SMS */
+$('#sendSmsBtn').on('click', function(event) {
+  $("#resultBox").hide();
+  $("#spinnerNmt").show();
+  $('#responseNmt').html("Loading...");
+  $("#responseNmt").css("text-align", "center");
+  $("#spinnerNmt").css("display", "inline-block");
+  var url = sendSmsUrl
+
+  $.ajax({
+      url: sendSmsUrl,
+      type: 'POST',
+      headers: {
+        "Authorization": "Basic " + btoa(smsUsername + ":" + smsPassword)
+      },
+      data: {
+        msisdn: "0814572475",
+        message: "สวัสดีตอนเช้า"
+      },
+      contentType: "application/x-www-form-urlencoded" + '; charset=utf-8',
+      success: function (response) {
+        var data = response
+        $("#responseNmt").css("text-align", "left");
+        $('#responseNmt').html(JSON.stringify(JSON.parse(data), null, 2));
+        $("#spinnerNmt").hide();
+        $("#resultBox").show();
+      },
+      error: function () {
+        $("#responseNmt").css("text-align", "center");
+        $('#responseNmt').html("Error");
+        $("#spinnerNmt").hide();
+        $("#resultBox").show();
+      }
+    })
+});
       
   

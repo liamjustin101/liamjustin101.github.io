@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Nissan API Testing</title>
+    <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -111,6 +112,59 @@
         padding-bottom: 8px;
         display: inline-block;
       }
+
+      /* Google Places */
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map2 #infowindow-content {
+        display: inline;
+      }
+
+      #map2 {
+        height: 100%;
+      }
+
+      .pac-card {
+        background-color: #fff;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        margin: 10px;
+        padding: 0 0.5em;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+        font-family: Roboto;
+        padding: 0;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+        margin-left: 12px;
+        margin-top: 12px;
+        min-width: 300px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
     </style>   
   </head>
   <body>
@@ -130,7 +184,10 @@
         <a class="nav-link" href="#nlth" id="nlth-tab" data-bs-toggle="tab" data-bs-target="#nlth" type="button" role="tab" aria-controls="nlth" aria-selected="false">NLTH</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#google-map" id="google-map-tab" data-bs-toggle="tab" data-bs-target="#google-map" type="button" role="tab" aria-controls="google-map" aria-selected="false">Google Map</a>
+        <a class="nav-link" href="#google-map" id="google-map-tab" data-bs-toggle="tab" data-bs-target="#google-map" type="button" role="tab" aria-controls="google-map" aria-selected="false">Google Maps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#sms" id="sms-tab" data-bs-toggle="tab" data-bs-target="#sms" type="button" role="tab" aria-controls="sms" aria-selected="false">SMS</a>
       </li>
     </ul>
     <div id="spinnerNmt" class="lj-align-spinner-center-screen spinner-border text-secondary lj-position-fixed lj-hidden" role="status">
@@ -318,8 +375,75 @@
           </table>
           </div>
           <div class="lj-line-spacing">&nbsp;</div>
-        </div>
 
+          <!-- Google Places -->
+          <div class="pac-card" id="pac-card">
+            <!--
+            <div>
+              <div id="title">Autocomplete search</div>
+              <div id="type-selector" class="pac-controls">
+                <input
+                  type="radio"
+                  name="type"
+                  id="changetype-all"
+                  checked="checked"
+                />
+                <label for="changetype-all">All</label>
+
+                <input type="radio" name="type" id="changetype-establishment" />
+                <label for="changetype-establishment">establishment</label>
+
+                <input type="radio" name="type" id="changetype-address" />
+                <label for="changetype-address">address</label>
+
+                <input type="radio" name="type" id="changetype-geocode" />
+                <label for="changetype-geocode">geocode</label>
+
+                <input type="radio" name="type" id="changetype-cities" />
+                <label for="changetype-cities">(cities)</label>
+
+                <input type="radio" name="type" id="changetype-regions" />
+                <label for="changetype-regions">(regions)</label>
+              </div>
+              <br />
+              <div id="strict-bounds-selector" class="pac-controls">
+                <input type="checkbox" id="use-location-bias" value="" checked />
+                <label for="use-location-bias">Bias to map viewport</label>
+
+                <input type="checkbox" id="use-strict-bounds" value="" />
+                <label for="use-strict-bounds">Strict bounds</label>
+              </div>
+            </div>
+            -->
+            <div id="pac-container">
+             <!-- <input id="pac-input" type="text" placeholder="Enter a location" /> -->
+              <input id="pac-input" type="text" class="form-control" placeholder="ป้อนชื่อสถานที่" aria-describedby="emailHelp">
+            </div>
+          </div>
+          <div class="lj-button-container">
+            <button id="getLocationFromPlaceBtn" type="button" class="btn btn-primary">Get Location from Place
+            </button>
+          </div>
+          <div class="lj-line-spacing"></div>
+          <div id="map2">
+
+          </div>
+          <div id="infowindow-content">
+            <span id="place-name" class="title"></span><br />
+            <span id="place-address"></span>
+          </div>
+          <br><br>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="sms" role="tabpanel" aria-labelledby="sms-tab">
+          <div class="lj-line-spacing"></div>
+          <div class="lj-header">
+            Endpoint: <div id="smsHeader"></div>
+          </div>
+          <div class="lj-line-spacing"></div>
+          <div class="lj-center">
+            <button id="sendSmsBtn" type="button" class="btn btn-primary">Send SMS</button>
+          </div>
       </div>
     </div>
     </div>
@@ -345,6 +469,7 @@
           $( "#addNewLeadHeader" ).html(addNewLeadUrl);
           $( "#getSessionIdHeader" ).html(getSessionIdUrl);
           $( "#registerConsentHeader" ).html(registerConsentUrl);
+          $( "#smsHeader" ).html(sendSmsUrl);
 
           $('#line-uid').val(new RandExp(/U[0-9a-f]{32}/).gen());
       });
@@ -414,7 +539,7 @@
     </script>
 
     <script>
-
+      var markerOnPlace = null;
       function initMap() {
         const markerIcon = {
             url: markerIconUrl, 
@@ -455,7 +580,7 @@
 
         mockMarker = new google.maps.Marker({
           position: centerPos,
-          map,
+          map: map,
           title: "Mock location",
           draggable: true
         });
@@ -466,12 +591,127 @@
         mockMarker.addListener("click", () => {
         
         });
+
+        /* Google Places */
+        const map2 = new google.maps.Map(document.getElementById("map2"), {
+          center: centerPos,
+          zoom: 13,
+          mapTypeControl: false,
+          gestureHandling: 'greedy',
+          scrollwheel: false
+        });
+        const card = document.getElementById("pac-card");
+        const input = document.getElementById("pac-input");
+        const biasInputElement = document.getElementById("use-location-bias");
+        const strictBoundsInputElement = document.getElementById("use-strict-bounds");
+        const options = {
+          fields: ["formatted_address", "geometry", "name"],
+          strictBounds: false,
+          types: ["establishment"],
+        };
+
+        map2.controls[google.maps.ControlPosition.TOP_LEFT].push(card);
+
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+        // Bind the map's bounds (viewport) property to the autocomplete object,
+        // so that the autocomplete requests use the current map bounds for the
+        // bounds option in the request.
+        autocomplete.bindTo("bounds", map2);
+
+        const infowindow = new google.maps.InfoWindow();
+        const infowindowContent = document.getElementById("infowindow-content");
+
+        infowindow.setContent(infowindowContent);
+
+        markerOnPlace = new google.maps.Marker({
+          position: centerPos,
+          map: map2,
+          anchorPoint: new google.maps.Point(0, -29),
+          title: "Location",
+          draggable: true
+        });
+
+        autocomplete.addListener("place_changed", () => {
+          infowindow.close();
+          markerOnPlace.setVisible(false);
+
+          const place = autocomplete.getPlace();
+
+          if (!place.geometry || !place.geometry.location) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map2.fitBounds(place.geometry.viewport);
+          } else {
+            map2.setCenter(place.geometry.location);
+            map2.setZoom(17);
+          }
+
+          markerOnPlace.setPosition(place.geometry.location);
+          markerOnPlace.setVisible(true);
+          infowindowContent.children["place-name"].textContent = place.name;
+          infowindowContent.children["place-address"].textContent =
+            place.formatted_address;
+          infowindow.open(map2, markerOnPlace);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        /*
+        function setupClickListener(id, types) {
+          const radioButton = document.getElementById(id);
+
+          radioButton.addEventListener("click", () => {
+            autocomplete.setTypes(types);
+            input.value = "";
+          });
+        }
+
+        setupClickListener("changetype-all", []);
+        setupClickListener("changetype-address", ["address"]);
+        setupClickListener("changetype-establishment", ["establishment"]);
+        setupClickListener("changetype-geocode", ["geocode"]);
+        setupClickListener("changetype-cities", ["(cities)"]);
+        setupClickListener("changetype-regions", ["(regions)"]);
+        biasInputElement.addEventListener("change", () => {
+          if (biasInputElement.checked) {
+            autocomplete.bindTo("bounds", map2);
+          } else {
+            // User wants to turn off location bias, so three things need to happen:
+            // 1. Unbind from map
+            // 2. Reset the bounds to whole world
+            // 3. Uncheck the strict bounds checkbox UI (which also disables strict bounds)
+            autocomplete.unbind("bounds");
+            autocomplete.setBounds({ east: 180, west: -180, north: 90, south: -90 });
+            strictBoundsInputElement.checked = biasInputElement.checked;
+          }
+
+          input.value = "";
+        });
+        strictBoundsInputElement.addEventListener("change", () => {
+          autocomplete.setOptions({
+            strictBounds: strictBoundsInputElement.checked,
+          });
+          if (strictBoundsInputElement.checked) {
+            biasInputElement.checked = strictBoundsInputElement.checked;
+            autocomplete.bindTo("bounds", map2);
+          }
+
+          input.value = "";
+        });
+        */
         
       }
     </script>
 
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsx7r-8BIp4eMitPikK3f9J5uLkNILDt0&libraries=places&callback=initMap&v=weekly"
       defer
     ></script>
     <script src="helper.js"></script>
