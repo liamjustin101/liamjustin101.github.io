@@ -51,10 +51,10 @@
         margin-left: 16px;
       }
       .lj-header {
-        border: 1px solid grey;
+        border: 1.5px solid lightgrey;
         border-radius: 8px;
         padding: 8px;
-        background-color: #eeeeee;
+        background-color: whitesmoke;
         color: black;
       }
       .lj-width-100p {
@@ -450,6 +450,7 @@
 
     <script>
       $(function(){
+        /*
         var hash = window.location.hash;
         hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 
@@ -459,6 +460,7 @@
           window.location.hash = this.hash;
           $('html,body').scrollTop(scrollmem);
         });
+        */
       });
       $(window).on('hashchange',function(){ 
           window.location.reload(true); 
